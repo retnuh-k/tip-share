@@ -1,2 +1,2 @@
 # tip-share
-Java program for calculating individual's contributions to a bill.
+Java program for calculating individuals' contributions to a bill.
