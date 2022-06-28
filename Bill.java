@@ -12,7 +12,7 @@ public class Bill {
         subtotal = newSubtotal;
         tax = newTax;
         tip = newTip;
-        total = newSubtotal * (1+newTax) * (1+newTip);
+        total = newSubtotal*(1+newTax) + newSubtotal*newTip;
         customers = new ArrayList<Customer>();
     }
 
@@ -39,10 +39,18 @@ public class Bill {
     }
 
     public void calculateIndividualTotals() {
-        for (int i=0; i<customers.size(); i++) {
+        double sharedTotal = 0;
+	      for (int i=0; i<customers.size(); i++) {
             Customer c = customers.get(i);
             double cTotal = c.getTotalItemCost() / subtotal * total;
             c.setAmountOwed(cTotal);
+	          sharedTotal += cTotal;
+        }
+        // Add cost of leftover items divided evenly to each customer
+        double leftoverCost = (total - sharedTotal) / customers.size();
+        for (int i=0; i<customers.size(); i++) {
+            Customer c = customers.get(i);
+            c.setAmountOwed(c.getAmountOwed() + leftoverCost);
         }
     }
 }

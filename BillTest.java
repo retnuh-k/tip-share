@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class BillTest {
     public static void main(String[] args){
@@ -47,7 +48,8 @@ public class BillTest {
         ArrayList<Customer> customers = bill.getCustomers();
         for (int i=0; i<customers.size(); i++){
             Customer c = customers.get(i);
-            System.out.println(c.getName() + " owes " + c.getAmountOwed());
+            DecimalFormat df = new DecimalFormat("#.##");
+            System.out.println(c.getName() + " owes $" + df.format(c.getAmountOwed()));
         }
 
         input.close();
